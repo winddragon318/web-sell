@@ -1,0 +1,198 @@
+﻿
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;     
+}
+    .page-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+    /* Footer */
+    .my-footer {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        height: 50px;
+    }
+    /*Header*/
+    .my-header {
+        background-color: white;
+        color: black;
+        padding: 0;
+        height: auto;
+        border-bottom: 1px solid #ddd;
+    }
+    /* Thêm class cho dòng thông báo sale ở trên cùng */
+    .top_header {
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 8px;
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+    @media (max-width: 800px) {
+        .navbar-collapse {
+            margin: 0 !important;
+        }
+    }
+
+    .navbar {
+        padding: 20px;
+    }
+
+    .navbar-collapse {
+        margin-left: 250px;
+    }
+
+    .d-flex {
+        justify-content: flex-end;
+    }
+
+    .navbar-brance {
+        padding-right: 50px;
+        justify-content: center;
+    }
+    /* --- PRODUCT CARD STYLES --- */
+
+    .product-card {
+        width: 100%;
+        cursor: pointer;
+        background: rgb(248, 249, 250);
+    }
+
+    .image-wrapper {
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+
+    .add-to-cart-btn {
+        opacity: 0;
+        transform: translateY(100%);
+        transition: all 0.3s ease;
+    }
+    /* Khi di chuột vào vùng ảnh -> Hiện nút lên */
+    .image-wrapper:hover .add-to-cart-btn {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+    .action-icons button:hover {
+        background-color: #db4444;
+        color: white;
+    }
+    /* --- CATEGORY CARD STYLES --- */
+
+    .category-card {
+        background-color: white;
+        color: black;
+        border-color: #dee2e6;
+        width: 175px !important;
+    }
+        /* Khi di chuột vào: Nền đỏ, Chữ trắng, Mất viền */
+        .category-card:hover {
+            background-color: #db4444;
+            color: white;
+            border-color: #db4444;
+            box-shadow: 0 4px 15px rgba(219, 68, 68, 0.3);
+        }
+
+    .category-wrapper {
+        display: block;
+    }
+    /* --- RESPONSIVE CHO ĐIỆN THOẠI (Dưới 768px) --- */
+    @media (max-width: 768px) {
+        /* 1. Ẩn tất cả các wrapper TRỪ thằng đầu tiên */
+        .category-wrapper:not(:first-child) {
+            display: none;
+        }
+
+        .category-card {
+            width: 100% !important;
+        }
+
+        #categoryList {
+            display: block !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+    /* --- FEATURED BANNER STYLES --- */
+    .featured-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+    }
+        /* Lớp ảnh nền */
+        .featured-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            opacity: 0.8;
+        }
+        /* Hiệu ứng zoom nhẹ khi di chuột */
+        .featured-item:hover img {
+            transform: scale(1.05);
+            opacity: 0.6;
+        }
+    /* Khung chứa chữ (Ghim xuống đáy) */
+    .featured-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 24px;
+        width: 100%;
+        z-index: 2;
+        pointer-events: none;
+    }
+    /* Link "Shop Now" */
+    .shop-now-link {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        border-bottom: 1px solid white;
+        padding-bottom: 2px;
+        pointer-events: auto;
+    }
+    /*Hiệu ứng hover cho icon */
+    .bi-heart {
+        transition: color 0.3s ease;
+        width: 40px;
+        height: 40px;
+    }
+
+        .bi-heart:hover {
+            background-color: #db4444;
+            color: white;
+            border-radius: 50%;
+        }
+
+    .bi-cart3 {
+        transition: color 0.3s ease;
+        width: 40px;
+        height: 40px;
+    }
+
+        .bi-cart3:hover {
+            background-color: #db4444;
+            color: white;
+            border-radius: 50%;
+        }
+
+    .btn-icon:hover {
+        background-color: #db4444 !important;
+    }

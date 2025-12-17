@@ -1,0 +1,115 @@
+﻿@page "/login"
+@using MyWebApp.Models
+@using MyWebApp.Data
+@using Microsoft.EntityFrameworkCore
+@inject AppDbContext DbContext
+@inject NavigationManager Navigation
+
+<div class="container" style="margin-top: 60px; margin-bottom: 100px;">
+    <div class="row align-items-center">
+
+        <div class="col-lg-7 col-md-6 d-none d-md-block">
+            <div class="bg-light-blue rounded d-flex justify-content-center align-items-center overflow-hidden"
+                 style="height: 600px;">
+                <img src="/images/login.png"
+                     onerror="this.src='https://img.freepik.com/free-photo/3d-render-secure-login-password-illustration_107791-16640.jpg?w=900'"
+                     alt="Shopping Login"
+                     class="img-fluid"
+                     style="max-height: 100%; object-fit: cover;">
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 ms-auto py-4">
+            <h2 class="fw-bold mb-2 fs-1">Log in to Exclusive</h2>
+            <p class="text-black mb-4">Enter your details below</p>
+            <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+                <DataAnnotationsValidator />
+                <div class="mb-4">
+                    <InputText class="form-control login-input"
+                               placeholder="Email or Phone Number"
+                               @bind-Value="loginModel.Email" />
+                    <ValidationMessage For="@(() => loginModel.Email)" class="text-danger small" />
+                </div>
+                <div class="mb-4">
+                    <InputText type="password"
+                               class="form-control login-input"
+                               placeholder="Password"
+                               @bind-Value="loginModel.Password" />
+                    <ValidationMessage For="@(() => loginModel.Password)" class="text-danger small" />
+                </div>
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger p-2 small">@errorMessage</div>
+                }
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <button type="submit" class="btn btn-danger px-4 py-2 rounded-1 fw-bold" style="min-width: 140px;">
+                        Log In
+                    </button>
+                    <a href="#" class="text-danger text-decoration-none">Forget Password?</a>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    // Tạo 1 class nhỏ để hứng dữ liệu nhập vào (chỉ dùng trong trang này)
+    public class LoginInput
+    {
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Vui lòng nhập Email")]
+        public string Email { get; set; }
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Vui lòng nhập Mật khẩu")]
+        public string Password { get; set; }
+    }
+
+    [SupplyParameterFromForm]
+    private LoginInput loginModel { get; set; } = new LoginInput();
+    private string errorMessage = "";
+    private async Task HandleLogin()
+    {
+        // 1. Tìm user trong Database theo Email
+        var user = await DbContext.Users
+            .AsNoTracking() // Tối ưu hiệu năng
+            .FirstOrDefaultAsync(u => u.Email == loginModel.Email);
+
+        // Nếu không tìm thấy Email
+        if (user == null)
+        {
+            errorMessage = "Email không tồn tại hoặc sai thông tin!";
+            return;
+        }
+
+        // 2. Kiểm tra mật khẩu (So sánh Pass nhập vào với Pass đã mã hóa trong DB)
+        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(loginModel.Password, user.Password);
+
+        if (isPasswordValid)
+        {
+            // Đăng nhập thành công -> Chuyển đến trang Account hoặc Home
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            // Sai mật khẩu
+            errorMessage = "Sai mật khẩu, vui lòng thử lại!";
+        }
+    }
+}
+
+<style>
+    /* CSS giữ nguyên như cũ */
+    .login-input {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        padding: 10px 0;
+        background-color: transparent;
+        box-shadow: none !important;
+    }
+
+        .login-input:focus {
+            border-bottom-color: black;
+        }
+
+    .bg-light-blue {
+        background-color: #CBE4E8;
+    }
+</style>

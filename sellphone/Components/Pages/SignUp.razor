@@ -1,0 +1,115 @@
+﻿@page "/signup"
+@using MyWebApp.Models
+@using MyWebApp.Data
+@using Microsoft.EntityFrameworkCore
+@inject AppDbContext DbContext
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<div class="container" style="margin-top: 60px; margin-bottom: 100px;">
+    <div class="row align-items-center">
+        <div class="col-lg-7 col-md-6 d-none d-md-block">
+            <div class="bg-light-blue rounded d-flex justify-content-center align-items-center overflow-hidden" style="height: 600px;">
+                <img src="/images/login.png" onerror="this.src='https://img.freepik.com/free-photo/3d-render-secure-login-password-illustration_107791-16640.jpg?w=900'" alt="Sign Up" class="img-fluid" style="max-height: 100%; object-fit: cover;">
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 ms-auto py-4">
+            <h2 class="fw-bold mb-2 fs-1">Create an account</h2>
+            <p class="text-black mb-4">Enter your details below</p>
+
+            <EditForm Model="newUser" OnValidSubmit="HandleRegister" FormName="RegisterForm">
+                <DataAnnotationsValidator />
+
+                <div class="mb-4">
+                    <InputText class="form-control login-input" placeholder="Name" @bind-Value="newUser.Name" />
+                    <ValidationMessage For="@(() => newUser.Name)" class="text-danger small" />
+                </div>
+
+                <div class="mb-4">
+                    <InputText class="form-control login-input" placeholder="Email" @bind-Value="newUser.Email" />
+                    <ValidationMessage For="@(() => newUser.Email)" class="text-danger small" />
+                </div>
+
+                <div class="mb-4">
+                    <InputText type="password" class="form-control login-input" placeholder="Password" @bind-Value="newUser.Password" />
+                    <ValidationMessage For="@(() => newUser.Password)" class="text-danger small" />
+                </div>
+
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger p-2 small">@errorMessage</div>
+                }
+
+                <div class="d-flex flex-column gap-3 mt-4">
+                    <button type="submit" class="btn btn-danger py-3 rounded-1 fw-bold w-100">Create Account</button>
+                </div>
+
+                <div class="text-center mt-3 text-muted">
+                    <span>Already have account? </span>
+                    <a href="/login" class="text-black text-decoration-underline fw-bold ms-1">Log in</a>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    // 👇 3. KHÔNG KHỞI TẠO "= new User()" Ở ĐÂY ĐỂ TRÁNH LỖI OVERWRITE
+    [SupplyParameterFromForm]
+    public User newUser { get; set; }
+
+    private string errorMessage = "";
+
+    // 👇 4. KHỞI TẠO Ở ĐÂY LÀ AN TOÀN NHẤT
+    protected override void OnInitialized()
+    {
+        newUser ??= new User();
+    }
+
+    private async Task HandleRegister()
+    {
+        try
+        {
+            var existingUser = await DbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == newUser.Email);
+            if (existingUser != null)
+            {
+                errorMessage = "Email đã tồn tại!";
+                return;
+            }
+
+            // Hash password
+            newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+
+            DbContext.Users.Add(newUser);
+            await DbContext.SaveChangesAsync();
+
+            Navigation.NavigateTo("/login");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Lỗi: " + ex.Message;
+        }
+    }
+}
+
+<style>
+    /* CSS cũ giữ nguyên */
+    .login-input {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        padding: 10px 0;
+        background: transparent;
+        box-shadow: none !important;
+    }
+
+        .login-input:focus {
+            border-bottom-color: black;
+        }
+
+    .bg-light-blue {
+        background-color: #CBE4E8;
+    }
+</style>

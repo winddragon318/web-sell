@@ -1,0 +1,11 @@
+﻿<div class="category-card d-flex flex-column align-items-center justify-content-center border rounded p-3"
+     style="width: 160px; min-width: 120px; flex: 0 0 auto; height: 130px; cursor: pointer; transition: all 0.3s;">
+
+    <i class="@IconClass fs-1 mb-2"></i>
+    <span class="fw-normal">@Name</span>
+</div>
+
+@code {
+    [Parameter] public string Name { get; set; } = "Category";
+    [Parameter] public string IconClass { get; set; } = "bi bi-box";
+}

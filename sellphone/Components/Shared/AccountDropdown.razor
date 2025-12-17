@@ -1,0 +1,77 @@
+﻿<div class="dropdown">
+    <button class="btn btn-link text-decoration-none p-0 border-0 user-trigger"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+        <i class="bi bi-person fs-4"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end custom-dropdown mt-2 border-0 shadow-lg">
+        <li>
+            <a class="dropdown-item text-white d-flex align-items-center gap-2 justify-content-start" href="/account">
+                <i class="bi bi-person"></i>
+                <span>Manage My Account</span>
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-item text-white d-flex align-items-center gap-2 justify-content-start" href="/orders">
+                <i class="bi bi-bag"></i>
+                <span>My Order</span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item text-white d-flex align-items-center gap-2 justify-content-start" href="/cancellations">
+                <i class="bi bi-x-circle"></i>
+                <span>My Cancellations</span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item text-white d-flex align-items-center gap-2 justify-content-start" href="/reviews">
+                <i class="bi bi-star"></i>
+                <span>My Reviews</span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item text-white d-flex align-items-center gap-2 justify-content-start" href="/logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<style>
+    /* 1. Style cho Icon kích hoạt (User Icon) */
+    .user-trigger {
+        color: black; /* Mặc định màu đen */
+        transition: color 0.3s ease;
+        width: 40px;
+        height: 40px;
+    }     
+        .user-trigger:hover, .dropdown.show .user-trigger {
+            background-color: #db4444; 
+            color: white;
+            border-radius: 50%;
+        }   
+    .custom-dropdown {
+        background-color: rgba(0, 0, 0, 0.5); 
+        backdrop-filter: blur(10px); 
+        padding: 10px;
+        min-width: 220px;
+        border-radius: 4px;
+    }
+    .dropdown-item {
+        font-size: 14px;
+        padding: 8px 10px;
+        border-radius: 4px;
+        opacity: 0.9;
+        transition: all 0.2s;
+    }
+        .dropdown-item i {
+            font-size: 18px;
+        }
+        .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Nền trắng mờ */
+            color: white !important;
+            opacity: 1;
+        }
+</style>

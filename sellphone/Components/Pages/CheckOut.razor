@@ -1,0 +1,146 @@
+﻿@page "/checkout"
+<PageTitle>Checkout</PageTitle>
+<SectionContent SectionName="HeaderExtras">
+    <div class="d-flex align-items-center gap-3 ms-3">
+
+        <Cart_Heart />
+        <AccountDropdown />
+    </div>
+</SectionContent>
+<div class="container my-5 pb-5">
+
+    <div class="mb-5 text-muted small">
+        <span>Account</span> / <span>My Account</span> / <span>Product</span> / <span>View Cart</span> / <span class="text-black fw-bold">CheckOut</span>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-6 mb-5">
+            <h2 class="fw-bold mb-4">Billing Details</h2>
+
+            <form>
+                <div class="mb-3">
+                    <label class="form-label text-muted small">First Name<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control bg-light border-0 py-3 rounded-1">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">Company Name</label>
+                    <input type="text" class="form-control bg-light border-0 py-3 rounded-1">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">Street Address<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control bg-light border-0 py-3 rounded-1">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">Apartment, floor, etc. (optional)</label>
+                    <input type="text" class="form-control bg-light border-0 py-3 rounded-1">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">Town/City<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control bg-light border-0 py-3 rounded-1">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small">Phone Number<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control bg-light border-0 py-3 rounded-1">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-muted small">Email Address<span class="text-danger">*</span></label>
+                    <input type="email" class="form-control bg-light border-0 py-3 rounded-1">
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input bg-danger border-0" type="checkbox" id="saveInfo" checked>
+                    <label class="form-check-label ms-2" for="saveInfo">
+                        Save this information for faster check-out next time
+                    </label>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-lg-5 offset-lg-1">
+            <div class="pt-4">
+
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="/images/console3.jfif" alt="Product" width="50">
+                        <span>LCD Monitor</span>
+                    </div>
+                    <span>$650</span>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="/images/lgd.png" alt="Product" width="50">
+                        <span>H1 Gamepad</span>
+                    </div>
+                    <span>$1100</span>
+                </div>
+
+                <div class="d-flex justify-content-between py-3 border-bottom">
+                    <span>Subtotal:</span>
+                    <span>$1750</span>
+                </div>
+                <div class="d-flex justify-content-between py-3 border-bottom">
+                    <span>Shipping:</span>
+                    <span>Free</span>
+                </div>
+                <div class="d-flex justify-content-between py-3 mb-4">
+                    <span>Total:</span>
+                    <span class="fw-bold">$1750</span>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input shadow-none" type="radio" name="paymentMethod" id="bank" style="accent-color: black;">
+                            <label class="form-check-label" for="bank">Bank</label>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" height="15" alt="Visa">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" height="20" alt="Mastercard">
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input shadow-none" type="radio" name="paymentMethod" id="cod" checked style="accent-color: black;">
+                        <label class="form-check-label" for="cod">Cash on delivery</label>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3 mb-4">
+                    <input type="text" class="form-control py-3 border-dark rounded-1 shadow-none" placeholder="Coupon Code">
+                    <button class="btn btn-danger px-4 rounded-1">Apply Coupon</button>
+                </div>
+
+                <button class="btn btn-danger w-100 py-3 rounded-1 fw-bold">Place Order</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* Chỉnh màu cho checkbox "Save Info" giống thiết kế (đỏ) */
+    .form-check-input:checked {
+        background-color: #db4444;
+        border-color: #db4444;
+    }
+
+    /* Chỉnh màu radio button thanh toán (đen) */
+    input[type="radio"]:checked {
+        background-color: black;
+        border-color: black;
+    }
+
+    /* Style lại nền input bên trái cho giống ảnh mẫu (xám nhạt) */
+    .bg-light {
+        background-color: #f5f5f5 !important;
+    }
+</style>

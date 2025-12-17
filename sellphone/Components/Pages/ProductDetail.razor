@@ -1,0 +1,298 @@
+﻿@page "/productdetail"
+<SectionContent SectionName="HeaderExtras">
+    <div class="d-flex align-items-center gap-3 ms-3">
+        <Cart_Heart />
+        <AccountDropdown />
+    </div>
+</SectionContent>
+
+<div class="container my-5 pb-5">
+    <div class="mb-5 text-muted small">
+        <a href="/" class="text-muted text-decoration-none">Account</a>
+        <span class="mx-2">/</span>
+        <span class="text-muted">Gaming</span>
+        <span class="mx-2">/</span>
+        <span class="text-black fw-bold">Havic HV G-92 Gamepad</span>
+    </div>
+    <div class="row">
+        <div class="col-lg-7 mb-5 mb-lg-0">
+            <div class="d-flex flex-column-reverse flex-lg-row gap-3 gap-lg-4 gallery-container">
+                <div class="d-flex flex-row flex-lg-column gap-3 justify-content-between thumbnail-list">
+                    @foreach (var img in images)
+                    {
+                        <div class="bg-light-gray rounded d-flex justify-content-center align-items-center p-2 cursor-pointer border-hover thumbnail-item @(currentImage == img ? "active-thumb" : "")"
+                             @onclick="() => currentImage = img">
+                            <img src="@img" class="img-fluid">
+                        </div>
+                    }
+                </div>
+                <div class="bg-light-gray rounded d-flex justify-content-center align-items-center flex-grow-1 p-3 p-lg-5 main-image-box">
+                    <img src="@currentImage" class="img-fluid main-img">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 ps-lg-5">
+            <h3 class="fw-bold mb-3">Havic HV G-92 Gamepad</h3>
+            <div class="d-flex align-items-center mb-3">
+                <div class="text-warning me-2 small">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-muted small me-3">(150 Reviews)</span>
+                <span class="text-muted me-3">|</span>
+                <span class="text-success small">In Stock</span>
+            </div>
+            <h3 class="fw-normal mb-3">$192.00</h3>
+            <p class="small text-black mb-4 pb-4 border-bottom">
+                PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.
+            </p>
+            <div class="d-flex align-items-center mb-3">
+                <span class="me-3 fs-5">Colours:</span>
+                <div class="d-flex gap-3">
+                    @foreach (var item in ColorOptions)
+                    {
+                        <div class="color-checker @(SelectedId == item.Id ? "active" : "")"
+                             style="--theme-color: @item.HexCode;"
+                             @onclick="() => SelectColor(item)">
+
+                            <div class="rounded-circle @item.BsClass"
+                                 style="width: 15px; height: 15px;">
+                            </div>
+                        </div>
+                    }
+                </div>
+                @code {
+                    // 1. Biến lưu trạng thái đang chọn
+                    private int SelectedId = 1; // Mặc định chọn màu Đỏ (Id=1)
+                    private string SelectedColorName = "Đỏ";
+
+                    // 2. Danh sách các lựa chọn màu
+                    private List<ColorItem> ColorOptions = new()
+                                {
+                                new ColorItem { Id = 1, Name = "Đỏ", BsClass = "bg-danger", HexCode = "#dc3545" },
+                                new ColorItem { Id = 2, Name = "Xanh", BsClass = "bg-primary", HexCode = "#0d6efd" }
+                                };
+
+                    // 3. Hàm xử lý khi click
+                    private void SelectColor(ColorItem item)
+                    {
+                        SelectedId = item.Id;
+                        SelectedColorName = item.Name;
+                        // Tại đây có thể bắn EventCallback lên cha hoặc gọi API
+                    }
+
+                    // Class DTO đơn giản
+                    public class ColorItem
+                    {
+                        public int Id { get; set; }
+                        public string Name { get; set; }
+                        public string BsClass { get; set; } // Class Bootstrap (bg-danger, bg-primary)
+                        public string HexCode { get; set; } // Mã màu Hex để làm viền (Border)
+                    }
+                }
+            </div>
+            <div class="d-flex align-items-center mb-4">
+                <span class="me-3 fs-5">Size:</span>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-dark btn-sm px-3 rounded-1 fw-bold border-1 shadow-none">XS</button>
+                    <button class="btn btn-outline-dark btn-sm px-3 rounded-1 fw-bold border-1 shadow-none">S</button>
+                    <button class="btn btn-outline-dark btn-sm px-3 rounded-1 fw-bold border-1 shadow-none">M</button> <button class="btn btn-outline-dark btn-sm px-3 rounded-1 fw-bold border-1 shadow-none">L</button>
+                    <button class="btn btn-outline-dark btn-sm px-3 rounded-1 fw-bold border-1 shadow-none">XL</button>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-3 mb-5">
+                <div class="d-flex border border-secondary rounded-1 overflow-hidden">
+                    <button class="btn btn-white rounded-0 px-3 border-end border-secondary hover-red" @onclick="Decrease">-</button>
+                    <div class="px-4 py-2 fw-bold" style="width: 60px; text-align: center;">@quantity</div>
+                    <button class="btn btn-danger rounded-0 px-3 border-start border-danger" @onclick="Increase">+</button>
+                </div>
+                <button class="btn btn-danger px-5 py-2 rounded-1 fw-bold">Buy Now</button>
+                <button class="btn btn-outline-secondary rounded-1 p-2 border-1">
+                    <i class="bi bi-heart fs-5"></i>
+                </button>
+            </div>
+            <div class="border border-dark rounded-1">
+                <div class="d-flex align-items-center p-3 border-bottom border-dark justify-content-start">
+                    <i class="bi bi-truck fs-3 me-3"></i>
+                    <div>
+                        <h6 class="fw-bold mb-0">Free Delivery</h6>
+                        <a href="#" class="small text-black text-decoration-underline">Enter your postal code for Delivery Availability</a>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center p-3 justify-content-start">
+                    <i class="bi bi-arrow-repeat fs-3 me-3"></i>
+                    <div>
+                        <h6 class="fw-bold mb-0">Return Delivery</h6>
+                        <span class="small text-black">Free 30 Days Delivery Returns. </span>
+                        <a href="#" class="small text-black text-decoration-underline">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="best-selling-section mb-5">
+        <div class="row align-items-end mb-4">
+
+            <div class="col-8">
+                <div class="d-flex align-items-center gap-3 mb-2" style="justify-content: flex-start;">
+                    <div class="bg-danger rounded" style="width: 20px; height: 40px;"></div>
+                    <span class="text-danger fw-bold">Related item</span>
+                </div>               
+            </div>         
+        </div>
+        <div class="row g-4">
+
+            <div class="col-md-3 col-6">
+                <div class="h-100">
+                    <ProductCard Name="HAVIT HV-G92 Gamepad" Price="120" OldPrice="160" Discount="40" Stars="5" Reviews="88"
+                                 ImageUrl="/images/havit.png" />
+                </div>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <div class="h-100">
+                    <ProductCard Name="IPS LCD Gaming Monitor" Price="370" OldPrice="400" Discount="30" Stars="5" Reviews="65"
+                                 ImageUrl="/images/ips.png" />
+                </div>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <div class="h-100">
+                    <ProductCard Name="RGB liquid CPU Cooler" Price="160" OldPrice="170" Discount="0" Stars="5" Reviews="65"
+                                 ImageUrl="/images/rgb.png" />
+                </div>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <div class="h-100">
+                    <ProductCard Name="PS5 Controller" Price="120" OldPrice="160" Discount="0" Stars="4" Reviews="65"
+                                 ImageUrl="/images/ps5.png" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {  
+    private List<string> images = new List<string>
+    {
+        "/images/ps5-1.png", 
+        "/images/ps5-2.png", 
+        "/images/ps5-3.png", 
+        "/images/ps5-4.png"
+    };
+    private string currentImage="";
+    private int quantity = 2; 
+    protected override void OnInitialized()
+    {
+        currentImage = images[0]; 
+    }
+    private void Increase() => quantity++;
+    private void Decrease()
+    {
+        if (quantity > 1) quantity--;
+    }
+}
+<style>
+    .bg-light-gray {
+        background-color: #F5F5F5;
+    }
+    .cursor-pointer {
+        cursor: pointer;
+    }
+    .hover-red:hover {
+        background-color: #db4444;
+        color: white;
+    }
+    .btn-outline-dark {
+        border-color: #ccc;
+        color: black;
+    }
+        .btn-outline-dark:hover {
+            background-color: #db4444;
+            border-color: #db4444;
+            color: white;
+        }  
+    .thumbnail-item {
+        background-color: #F5F5F5;
+        border: 2px solid transparent;
+        transition: all 0.3s;
+    }
+    .thumbnail-item img {
+        max-height: 80%;
+        object-fit: contain;
+    }    
+    .thumbnail-item:hover, .thumbnail-item.active-thumb {
+        border-color: #db4444; 
+    }   
+    .main-image-box {
+        background-color: #F5F5F5;
+        width: 100%;
+    }
+    .main-img {
+        object-fit: contain;
+        width: 100%; 
+        height: 100%;
+    }
+  
+    @@media (min-width: 992px) {
+        .gallery-container {
+            height: 600px; 
+        }      
+        .thumbnail-list {
+            width: 170px; 
+            height: 100%;
+            overflow: hidden; 
+        }
+
+        .thumbnail-item {
+            height: 138px; 
+            width: 100%;
+        }
+        .main-img {
+            max-height: 400px;
+        }
+    }   
+    @@media (max-width: 991px) {
+        .gallery-container {
+            height: auto; 
+        }
+        .thumbnail-list {
+            width: 100%; 
+            overflow-x: auto; 
+            padding-bottom: 5px; 
+        }
+
+        .thumbnail-item {
+            width: 80px;  
+            height: 80px; 
+            flex-shrink: 0; 
+        }
+        .main-image-box {
+            height: 350px; 
+        }       
+        .main-img {
+            max-height: 300px;
+        }
+    }
+
+    /* Class khung bao ngoài */
+    .color-checker {
+        border: 2px solid transparent; /* Viền tàng hình để giữ chỗ */
+        border-radius: 50%;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        padding: 3px; /* Tạo khoảng trắng giữa viền và chấm tròn */
+    }
+
+        /* Khi Hover hoặc Active (được chọn) -> Hiện viền theo màu của biến --theme-color */
+        .color-checker:hover,
+        .color-checker.active {
+            border-color: var(--theme-color);
+            transform: scale(1.1); /* Phóng to nhẹ cho đẹp */
+        }
+</style>

@@ -1,0 +1,158 @@
+﻿@page "/wishlist"
+<PageTitle>Wishlist</PageTitle>
+<SectionContent SectionName="HeaderExtras">
+    <div class="d-flex align-items-center gap-3 ms-3">
+
+        <Cart_Heart />
+        <AccountDropdown />
+    </div>
+</SectionContent>
+@using sellphone.Components.Shared
+<div class="container my-5">
+
+    <div class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold mb-0">Wishlist (4)</h4>
+            <button class="btn btn-outline-dark px-4 py-3 rounded-1 fw-medium">Move All To Bag</button>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-6 col-md-3">
+                <div class="wishlist-card">
+                    <div class="position-relative bg-light rounded overflow-hidden mb-3">
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1">-35%</span>
+
+                        <button class="btn btn-white position-absolute top-0 end-0 m-2 rounded-circle shadow-sm p-0"
+                                style="width: 30px; height: 30px;">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+
+                        <div class="p-4 d-flex align-items-center justify-content-center" style="height: 250px;">
+                            <img src="/images/wallet.jfif"
+                                 class="img-fluid" style="max-height: 100%;" alt="Product">
+                        </div>
+
+                        <button class="btn btn-black w-100 rounded-0 py-2 text-white">
+                            <i class="bi bi-cart3 me-2"></i> Add To Cart
+                        </button>
+                    </div>
+
+                    <h6 class="fw-bold mb-1">Gucci Duffle Bag</h6>
+                    <div class="d-flex gap-3 justify-content-start text-start">
+                        <span class="text-danger fw-bold">$960</span>
+                        <span class="text-muted text-decoration-line-through">$1160</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="wishlist-card">
+                    <div class="position-relative bg-light rounded overflow-hidden mb-3">
+                        <button class="btn btn-white position-absolute top-0 end-0 m-2 rounded-circle shadow-sm p-0" style="width: 30px; height: 30px;">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                        <div class="p-4 d-flex align-items-center justify-content-center" style="height: 250px;">
+                            <img src="/images/rgb.webp" class="img-fluid" style="max-height: 100%;">
+                        </div>
+                        <button class="btn btn-black w-100 rounded-0 py-2 text-white"><i class="bi bi-cart3 me-2"></i> Add To Cart</button>
+                    </div>
+                    <h6 class="fw-bold mb-1">RGB liquid CPU Cooler</h6>
+                    <div class="d-flex gap-3 justify-content-start text-start">
+                        <span class="text-danger fw-bold">$1960</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="wishlist-card">
+                    <div class="position-relative bg-light rounded overflow-hidden mb-3">
+                        <button class="btn btn-white position-absolute top-0 end-0 m-2 rounded-circle shadow-sm p-0" style="width: 30px; height: 30px;">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                        <div class="p-4 d-flex align-items-center justify-content-center" style="height: 250px;">
+                            <img src="/images/console.jpg" class="img-fluid" style="max-height: 100%;">
+                        </div>
+                        <button class="btn btn-black w-100 rounded-0 py-2 text-white"><i class="bi bi-cart3 me-2"></i> Add To Cart</button>
+                    </div>
+                    <h6 class="fw-bold mb-1">GP11 Shooter USB Gamepad</h6>
+                    <div class="d-flex gap-3 justify-content-start text-start">
+                        <span class="text-danger fw-bold">$550</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="wishlist-card">
+                    <div class="position-relative bg-light rounded overflow-hidden mb-3">
+                        <button class="btn btn-white position-absolute top-0 end-0 m-2 rounded-circle shadow-sm p-0" style="width: 30px; height: 30px;">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                        <div class="p-4 d-flex align-items-center justify-content-center" style="height: 250px;">
+                            <img src="/images/jacket.jfif" class="img-fluid" style="max-height: 100%;">
+                        </div>
+                        <button class="btn btn-black w-100 rounded-0 py-2 text-white"><i class="bi bi-cart3 me-2"></i> Add To Cart</button>
+                    </div>
+                    <h6 class="fw-bold mb-1">Quilted Satin Jacket</h6>
+                    <div class="d-flex gap-3 justify-content-start text-start">
+                        <span class="text-danger fw-bold">$750</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="bg-danger rounded" style="width: 20px; height: 40px;"></div>
+                <h4 class="fw-bold mb-0">Just For You</h4>
+            </div>
+            <button class="btn btn-outline-dark px-4 py-3 rounded-1 fw-medium">See All</button>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-6 col-md-3">
+                <ProductCard Name="ASUS FHD Gaming Laptop" Price="960" OldPrice="1160" Discount="35" Stars="5" Reviews="65"
+                             ImageUrl="/images/asus2.jpg" />
+            </div>
+            <div class="col-6 col-md-3">
+                <ProductCard Name="IPS LCD Gaming Monitor" Price="1160" Stars="5" Reviews="65"
+                             ImageUrl="/images/lgd.png" />
+            </div>
+            <div class="col-6 col-md-3">
+                <ProductCard Name="HAVIT HV-G92 Gamepad" Price="560" IsNew="true" Stars="5" Reviews="65"
+                             ImageUrl="/images/console3.jfif" />
+            </div>
+            <div class="col-6 col-md-3">
+                <ProductCard Name="AK-900 Wired Keyboard" Price="200" Stars="5" Reviews="65"
+                             ImageUrl="/images/key.jpg" />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    /* CSS riêng cho nút Add To Cart màu đen */
+    .btn-black {
+        background-color: black;
+        border: none;
+        transition: background 0.3s;
+    }
+
+        .btn-black:hover {
+            background-color: #333; /* Xám đậm khi hover */
+        }
+
+    /* Chỉnh nút xóa (Thùng rác) */
+    .btn-white {
+        background-color: white;
+    }
+
+        .btn-white:hover {
+            background-color: #db4444; /* Hover vào thùng rác chuyển đỏ */
+            color: white;
+        }
+</style>

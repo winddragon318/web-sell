@@ -1,0 +1,123 @@
+﻿@page "/account"
+<PageTitle>Account</PageTitle>
+<SectionContent SectionName="HeaderExtras">
+    <div class="d-flex align-items-center gap-3 ms-3">
+
+        <Cart_Heart />
+        <AccountDropdown />
+    </div>
+</SectionContent>
+<div class="container my-5 pb-5">
+
+    <div class="d-flex align-items-center justify-content-between mb-5">
+        <div class="small">
+            <a href="/" class="text-muted text-decoration-none">Home</a>
+            <span class="mx-2 text-muted">/</span>
+            <span class="text-black fw-bold">My Account</span>
+        </div>
+
+        <div class="small">
+            Welcome! <span class="text-danger">Md Rimel</span>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3 mb-5">
+            <div class="d-flex flex-column gap-4">
+
+                <div>
+                    <h6 class="fw-bold mb-3">Manage My Account</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2 ps-3 text-muted" style="font-size: 15px;">
+                        <li><a href="#" class="text-muted text-decoration-none hover-link">My Profile</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none hover-link">Address Book</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none hover-link">My Payment Options</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h6 class="fw-bold mb-3">My Orders</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2 ps-3 text-muted" style="font-size: 15px;">
+                        <li><a href="#" class="text-muted text-decoration-none hover-link">My Returns</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none hover-link">My Cancellations</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h6 class="fw-bold mb-3">My WishList</h6>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card border-0 shadow-sm p-4 p-md-5">
+                <h4 class="text-danger fw-bold mb-4">Edit Your Profile</h4>
+
+                <form>
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-medium">First Name</label>
+                            <input type="text" class="form-control bg-light border-0 py-3 rounded-1">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-medium">Last Name</label>
+                            <input type="text" class="form-control bg-light border-0 py-3 rounded-1">
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-medium">Email</label>
+                            <input type="email" class="form-control bg-light border-0 py-3 rounded-1">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-medium">Address</label>
+                            <input type="text" class="form-control bg-light border-0 py-3 rounded-1">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 mt-2">
+                        <label class="form-label small fw-medium">Password Changes</label>
+
+                        <div class="d-flex flex-column gap-3">
+                            <input type="password" class="form-control bg-light border-0 py-3 rounded-1" placeholder="Current Password">
+                            <input type="password" class="form-control bg-light border-0 py-3 rounded-1" placeholder="New Password">
+                            <input type="password" class="form-control bg-light border-0 py-3 rounded-1" placeholder="Confirm New Password">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end align-items-center gap-4 mt-4">
+                        <button type="button" class="btn btn-link text-muted text-decoration-none">Cancel</button>
+                        <button type="submit" class="btn btn-danger px-4 py-3 rounded-1 fw-medium" style="min-width: 160px;">
+                            Save Changes
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* CSS Tùy chỉnh */
+
+    /* Input xám nhạt giống thiết kế */
+    .bg-light {
+        background-color: #f5f5f5 !important;
+    }
+
+    /* Hiệu ứng hover cho menu bên trái */
+    .hover-link:hover {
+        color: #db4444 !important; /* Đổi màu đỏ khi di chuột */
+    }
+
+    /* Bỏ shadow mặc định của form-control khi focus */
+    .form-control:focus {
+        box-shadow: none;
+        background-color: #f5f5f5; /* Giữ nguyên màu nền khi click */
+        border: 1px solid #db4444 !important; /* Viền đỏ nhẹ khi nhập liệu (tuỳ chọn) */
+    }
+</style>

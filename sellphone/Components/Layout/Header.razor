@@ -1,0 +1,108 @@
+﻿<header class="my-header">
+    <div class="bg-black text-white py-2">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 d-none d-lg-block"></div>
+                <div class="col-12 col-lg-6 text-center">
+                    <h6 class="top_header m-0">
+                        Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+                        <u class="fw-bold" style="cursor: pointer;">ShopNow</u>
+                    </h6>
+                </div>
+                <div class="col-12 col-lg-3 d-flex justify-content-center justify-content-lg-end">
+
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            English
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">Vietnam</a></li>                          
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><b>Exclusive</b></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbarContent" aria-controls="myNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="myNavbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup">Sign up</a>
+                    </li>
+                </ul>
+                <form class="d-flex flex-wrap justify-content-end" role="search">   
+                    <div class="search-box">
+                        <input type="text" placeholder="What are you looking for?">
+                        <button class="search-btn">
+                            <i class="bi bi-search"></i>
+                        </button>                        
+                    </div>
+                    <div class="ms-auto d-flex align-items-center mt-2">
+                        <SectionOutlet SectionName="HeaderExtras" />
+                    </div>
+                </form>               
+            </div>
+        </div>
+    </nav>
+</header>
+<style>
+    .search-box {
+        width: 250px;
+        background: #F3F3F3; 
+        border-radius: 8px;
+        padding: 0px 16px;
+        display: flex;
+        align-items: center; 
+        height: 36px !important;
+        margin-top:8px !important;
+    }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 14px;           
+        }
+
+    .search-btn {
+        width: 30px;
+        height: 30px; 
+        background: #F3F3F3;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .search-btn i {
+            font-size: 18px;
+            color: #000;
+        }
+
+    .navbar-brand {
+        padding-left: 75px;
+    }
+    @@media (max-width: 800px) {
+        .navbar-brand {
+            padding-left: 0px !important;
+        }
+    }
+</style>
