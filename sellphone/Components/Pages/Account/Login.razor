@@ -1,0 +1,71 @@
+﻿@page "/login"
+@using MyWebApp.Models
+@layout Layout.MainLayout
+@inject NavigationManager Navigation
+
+<div class="container" style="margin-top: 60px; margin-bottom: 100px;">
+    <div class="row align-items-center">
+        <div class="col-lg-7 col-md-6 d-none d-md-block">
+            <div class="bg-light-blue rounded d-flex justify-content-center align-items-center overflow-hidden" style="height: 600px;">
+                <img src="/images/login.png" onerror="this.src='https://img.freepik.com/free-photo/3d-render-secure-login-password-illustration_107791-16640.jpg?w=900'" alt="Login" class="img-fluid" style="max-height: 100%; object-fit: cover;">
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 ms-auto py-4">
+            <h2 class="fw-bold mb-2 fs-1">Log in to Exclusive</h2>
+            <p class="text-black mb-4">Enter your details below</p>
+
+            <form action="api/auth/login" method="post">
+
+                <div class="mb-4">
+                    <input type="text" name="Email" class="form-control login-input"
+                           placeholder="Email or Phone Number" required />
+                </div>
+
+                <div class="mb-4">
+                    <input type="password" name="Password" class="form-control login-input"
+                           placeholder="Password" required />
+                </div>
+
+                @if (!string.IsNullOrEmpty(ErrorMessage))
+                {
+                    <div class="alert alert-danger p-2 small">@ErrorMessage</div>
+                }
+
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <button type="submit" class="btn btn-danger px-4 py-2 rounded-1 fw-bold" style="min-width: 140px;">
+                        Log In
+                    </button>
+                    <a href="#" class="text-danger text-decoration-none">Forget Password?</a>
+                </div>
+
+                <AntiforgeryToken />
+            </form>
+        </div>
+    </div>
+</div>
+
+@code {
+    // Lấy thông báo lỗi từ URL (do Controller gửi về: /login?error=...)
+    [SupplyParameterFromQuery(Name = "error")]
+    public string? ErrorMessage { get; set; }
+}
+
+<style>
+    .login-input {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        padding: 10px 0;
+        background: transparent;
+        box-shadow: none !important;
+    }
+
+        .login-input:focus {
+            border-bottom-color: black;
+        }
+
+    .bg-light-blue {
+        background-color: #CBE4E8;
+    }
+</style>

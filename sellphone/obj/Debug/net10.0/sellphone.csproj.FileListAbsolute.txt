@@ -260,3 +260,4 @@ C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\
 C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\lihzn8ao8d-{0}-2lgipwaf5j-2lgipwaf5j.gz
 C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\iw59v5aekf-{0}-xvnvamh4rk-xvnvamh4rk.gz
 C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\mjna3ur3s0-{0}-qsvr1o4wpt-qsvr1o4wpt.gz
+C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\sellphone.sourcelink.json

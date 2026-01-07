@@ -1,4 +1,7 @@
-﻿<header class="my-header">
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager Navigation
+@inject HttpClient Http
+<header class="my-header">
     <div class="bg-black text-white py-2">
         <div class="container">
             <div class="row align-items-center">
@@ -40,10 +43,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">Sign up</a>
-                    </li>
+                    </li>       
+                    <AuthorizeView>
+                        <NotAuthorized>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>   
+                        </NotAuthorized>
+                    </AuthorizeView>
                 </ul>
                 <form class="d-flex flex-wrap justify-content-end" role="search">   
                     <div class="search-box">

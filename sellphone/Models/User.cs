@@ -4,18 +4,11 @@ namespace MyWebApp.Models
 {
     public class User
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Required(ErrorMessage = "Vui lòng nhập tên")]
+        [Key] public int Id { get; set; }
         public string Name { get; set; }
-
-        [Required(ErrorMessage = "Email không được để trống")]
-        [EmailAddress(ErrorMessage = "Định dạng email không hợp lệ")] 
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Mật khẩu không được để trống")]
-        [MinLength(6, ErrorMessage = "Mật khẩu phải từ 6 ký tự trở lên")] 
-        public string Password { get; set; }
+        public string Password { get; set; } // Mật khẩu đã mã hóa
+        public string Role { get; set; } = "Customer";
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
