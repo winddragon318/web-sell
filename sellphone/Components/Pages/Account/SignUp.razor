@@ -1,44 +1,29 @@
 ﻿@page "/signup"
-@using MyWebApp.Models
+@using MyWebApp.Shared.Models
 @inject HttpClient Http
 @inject NavigationManager Navigation
-@rendermode InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <div class="container" style="margin-top: 60px; margin-bottom: 100px;">
     <div class="row align-items-center">
-
         <div class="col-lg-7 col-md-6 d-none d-md-block">
-            <div class="bg-light-blue rounded d-flex justify-content-center align-items-center overflow-hidden" style="height: 600px;">
-                <img src="/images/login.png" onerror="this.src='https://img.freepik.com/free-photo/3d-render-secure-login-password-illustration_107791-16640.jpg?w=900'" alt="Sign Up" class="img-fluid" style="max-height: 100%; object-fit: cover;">
-            </div>
+            <img src="/images/login.png"  alt="Login" class="img-fluid" style="max-height: 100%; object-fit: cover;">
         </div>
 
         <div class="col-lg-4 col-md-6 ms-auto py-4">
             <h2 class="fw-bold mb-2 fs-1">Create an account</h2>
-            <p class="text-black mb-4">Enter your details below</p>
 
-            <EditForm Model="registerModel" OnValidSubmit="HandleRegister" FormName="RegisterForm">
-                <DataAnnotationsValidator />
-
+            <EditForm Model="registerModel" OnValidSubmit="HandleRegister" FormName="register">            
                 <div class="mb-4">
-                    <InputText class="form-control login-input"
-                               placeholder="Name"
-                               @bind-Value="registerModel.Name" />
+                    <InputText class="form-control login-input" placeholder="Name" @bind-Value="registerModel.Name" />
                     <ValidationMessage For="@(() => registerModel.Name)" class="text-danger small" />
                 </div>
-
                 <div class="mb-4">
-                    <InputText class="form-control login-input"
-                               placeholder="Email"
-                               @bind-Value="registerModel.Email" />
+                    <InputText class="form-control login-input" placeholder="Email" @bind-Value="registerModel.Email" />
                     <ValidationMessage For="@(() => registerModel.Email)" class="text-danger small" />
                 </div>
-
                 <div class="mb-4">
-                    <InputText type="password"
-                               class="form-control login-input"
-                               placeholder="Password"
-                               @bind-Value="registerModel.Password" />
+                    <InputText type="password" class="form-control login-input" placeholder="Password" @bind-Value="registerModel.Password" />
                     <ValidationMessage For="@(() => registerModel.Password)" class="text-danger small" />
                 </div>
 
@@ -59,62 +44,29 @@
         </div>
     </div>
 </div>
-@if (!string.IsNullOrEmpty(errorMessage))
-{
-    <div class="alert alert-danger mt-3">@errorMessage</div>
-}
+
 @code {
-    [SupplyParameterFromForm]
+    // 3. Đã xóa [SupplyParameterFromForm]
     public RegisterModel registerModel { get; set; } = new RegisterModel();
     private string errorMessage = "";
 
     private async Task HandleRegister()
     {
-        errorMessage = ""; // Reset lỗi cũ
-
         try
         {
-            // 1. Gọi API
             var response = await Http.PostAsJsonAsync("api/auth/register", registerModel);
-
-            // 2. Đọc nội dung trả về
-            var content = await response.Content.ReadAsStringAsync();
-
-            // 3. KIỂM TRA NGHIÊM NGẶT
             if (response.IsSuccessStatusCode)
             {
-                // Chỉ khi backend trả về 200 OK mới chuyển trang
                 Navigation.NavigateTo("/login");
             }
             else
             {
-                // Nếu backend trả về 400 hoặc 500, hiển thị lỗi đó ra
-                // content lúc này chứa chuỗi: "Email đã tồn tại" hoặc "Lỗi Server..."
-                errorMessage = content;
+                errorMessage = await response.Content.ReadAsStringAsync();
             }
         }
         catch (Exception ex)
         {
-            errorMessage = "Không thể kết nối đến Server. " + ex.Message;
+            errorMessage = "Lỗi: " + ex.Message;
         }
     }
 }
-
-<style>
-    .login-input {
-        border: none;
-        border-bottom: 1px solid #ccc;
-        border-radius: 0;
-        padding: 10px 0;
-        background: transparent;
-        box-shadow: none !important;
-    }
-
-        .login-input:focus {
-            border-bottom-color: black;
-        }
-
-    .bg-light-blue {
-        background-color: #CBE4E8;
-    }
-</style>

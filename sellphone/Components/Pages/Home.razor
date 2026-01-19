@@ -1,5 +1,8 @@
 ﻿@page "/"
 @using sellphone.Components.Shared
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
 <PageTitle>Home</PageTitle>
 
 <SectionContent SectionName="HeaderExtras">
@@ -103,11 +106,11 @@
                     <div class="fs-3 fw-bold">56</div>
                 </div>
             </div>
-            <div class="ms-auto d-none d-md-block">
-                <button class="btn btn-light rounded-circle me-2" type="button" @onclick="Previous">
+            <div class="ms-auto">
+                <button class="btn btn-light rounded-circle me-2" type="button" @onclick="GoPrev">
                     <i class="bi bi-arrow-left"></i>
                 </button>
-                <button class="btn btn-light rounded-circle" type="button" @onclick="Next">
+                <button class="btn btn-light rounded-circle" type="button" @onclick="GoNext">
                     <i class="bi bi-arrow-right"></i>
                 </button>
             </div>
@@ -115,11 +118,11 @@
 
         <div class=" text-center text-muted">
             <div class=" text-center text-muted">
-                <div class="d-flex gap-3 overflow-hidden w-100 pb-3 no-scrollbar" style="scroll-behavior: smooth;">
+                <div class="responsive slider-container" style="scroll-behavior: smooth;">
 
                     @foreach (var item in Products)
                     {
-                        <div class="flash-sale-item" @key="item.Name">
+                        <div class="slider-item" @key="item.Name">
                             <ProductCard Name="@item.Name"
                                          Price="@((double)item.Price)" OldPrice="@((double)item.OldPrice)" Discount="@item.Discount"
                                          Stars="@item.Stars"
@@ -146,43 +149,30 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h2 class="fw-bold mb-0">Browse By Category</h2>
 
-            <div class="d-none d-md-block">
-                <button class="btn btn-lighd-flext rounded-circle me-2" onclick="scrollList('categoryList', -1)">
+                <div class="ms-auto">
+                    <button class="btn btn-lighd-flext rounded-circle me-2" @onclick='() => RunCateControl("prev")'>
                     <i class="bi bi-arrow-left"></i>
                 </button>
-                <button class="btn btn-light rounded-circle" onclick="scrollList('categoryList', 1)">
+                    <button class="btn btn-light rounded-circl" @onclick='() => RunCateControl("next")'>
                     <i class="bi bi-arrow-right"></i>
                 </button>
             </div>
         </div>
 
-            <div id="categoryList" class="d-flex gap-2 flex-wrap pb-4 justify-content-start" style="scroll-behavior: smooth;">
-                <div class="category-wrapper">
-                    <CategoryCard Name="Phones" IconClass="bi bi-phone" />
-                </div>
+            <div class="cate-slider slider-container" style="scroll-behavior: smooth;">
+                @foreach (var item in Categories)
+                {
+                    <div class="cate-item" @key="item.Name">
 
-                <div class="category-wrapper">
-                    <CategoryCard Name="Computers" IconClass="bi bi-laptop" />
-                </div>
-                <div class="category-wrapper">
-                    <CategoryCard Name="SmartWatch" IconClass="bi bi-smartwatch" />
-                </div>
-                <div class="category-wrapper">
-                    <CategoryCard Name="Camera" IconClass="bi bi-camera" />
-                </div>
-                <div class="category-wrapper">
-                    <CategoryCard Name="HeadPhones" IconClass="bi bi-headphones" />
-                </div>
-                <div class="category-wrapper">
-                    <CategoryCard Name="Gaming" IconClass="bi bi-controller" />
-                </div>
-                <div class="category-wrapper">
-                    <CategoryCard Name="Tablets" IconClass="bi bi-tablet" />
-                </div>
+                        <div class="category-wrapper h-100">
+                            <CategoryCard Name="@item.Name" IconClass="@item.IconClass" />
+                        </div>
+
+                    </div>
+                }
             </div>
     </div>
     <hr class="my-5 opacity-25">
-
     <div class="best-selling-section mb-5">
 
         <div class="row align-items-end mb-4">
@@ -233,10 +223,10 @@
         </div>
     </div>
 </div>
-    <div class="container mb-5 baner-2">
+    <div class="mb-5 baner-2">
 
         <div class="music-banner-bg p-4 p-md-5 rounded shadow-lg d-flex flex-column justify-content-center justify-content-md-start position-relative">
-            <div class="col-md-6 text-white">
+            <div class="col-md-6 text-white p-2">
                 <span class="text-success fw-bold">Categories</span>
                 <h1 class="display-4 fw-bold mt-2 mb-4">Enhance Your <br> Music Experience</h1>
                 <div class="d-flex gap-3 mb-4 flex-wrap justify-content-start">
@@ -360,7 +350,7 @@
 
                         <div class="featured-content text-white">
                             <h4 class="fw-bold mb-2">Women's Collections</h4>
-                            <p class="small text-white-50 mb-3" style="max-width: 300px;">
+                            <p class="small text-white-50 mb-3">
                                 Featured woman collections that give you another vibe.
                             </p>
                             <a href="#" class="shop-now-link">Shop Now</a>
@@ -406,7 +396,7 @@
     </div>
 </div>
 @code {
-    // 1. Tạo Class Model chứa dữ liệu (hoặc dùng class có sẵn của bạn)
+    // 1. Tạo Class Model chứa dữ liệu 
     public class ProductModel
     {
         public string Name { get; set; }
@@ -433,28 +423,47 @@
         new ProductModel { Name = "Hidden Item 7", Price = 200, OldPrice = 300, Discount = 20, Stars = 4, Reviews = 50, ImageUrl = "/images/display.jfif" }
     };
 
-    // 3. Logic Xoay tua (Move items in List)
-    
-    // Nút Phải: Đẩy item đầu xuống cuối
-    private void Next()
+    // 3. Hàm C# gọi xuống JS
+    private async Task GoPrev()
     {
-        if (Products.Count > 0)
+        await JSRuntime.InvokeVoidAsync("controlSlider", "prev");
+    }
+    
+    private async Task GoNext()
+    {
+        await JSRuntime.InvokeVoidAsync("controlSlider", "next");
+    }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
         {
-            var item = Products[0];      // Lấy thằng đầu tiên
-            Products.RemoveAt(0);        // Xóa nó khỏi đầu
-            Products.Add(item);          // Thêm nó vào cuối
+            // Gọi hàm JS để khởi tạo Slider sau khi HTML đã được render lần đầu
+            await JSRuntime.InvokeVoidAsync("initSlickSlider");
+            // 2. Gọi khởi tạo cho Category Slider
+            await JSRuntime.InvokeVoidAsync("initCategorySlider");
         }
     }
-
-    // Nút Trái: Kéo item cuối lên đầu
-    private void Previous()
+    //categries
+    public class CateegoryModel
     {
-        if (Products.Count > 0)
-        {
-            var lastIndex = Products.Count - 1;
-            var item = Products[lastIndex]; // Lấy thằng cuối cùng
-            Products.RemoveAt(lastIndex);   // Xóa nó khỏi cuối
-            Products.Insert(0, item);       // Chèn nó vào đầu
-        }
+        public string Name { get; set; }
+        public string IconClass { get; set; }
+    }
+    public List<CateegoryModel> Categories { get; set; } = new List<CateegoryModel>
+    {
+        new CateegoryModel { Name = "Phones", IconClass = "bi bi-phone" },
+        new CateegoryModel { Name = "Computers", IconClass = "bi bi-laptop" },
+        new CateegoryModel { Name = "SmartWatch", IconClass = "bi bi-smartwatch" },
+        new CateegoryModel { Name = "Camera", IconClass = "bi bi-camera" },
+        new CateegoryModel { Name = "HeadPhones", IconClass = "bi bi-headphones" },
+        new CateegoryModel { Name = "Gaming", IconClass = "bi bi-controller" },
+        new CateegoryModel { Name = "Tablets", IconClass = "bi bi-tablet" }
+    };
+    // Hàm trung gian gọi xuống JS
+    private async Task RunCateControl(string action)
+    {
+        // Gọi đúng tên hàm JS: "CastecontrolSlider"
+        await JSRuntime.InvokeVoidAsync("CastecontrolSlider", action);
     }
 }

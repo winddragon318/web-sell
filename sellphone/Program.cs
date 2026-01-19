@@ -1,84 +1,61 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyWebApp.Data;
-using MyWebApp.Middleware;
-using MyWebApp.Repositories;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using sellphone.Components;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ================== 1. ĐĂNG KÝ SERVICES (DI CONTAINER) ==================
-
-// 1. Controller & Blazor
-builder.Services.AddControllers();
+// 1. Add Razor Components
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// 2. Kích hoạt tính năng "Nhận diện người dùng" cho Blazor
-builder.Services.AddCascadingAuthenticationState();
+// 2. Đăng ký HttpClient gọi sang Backend 
+builder.Services.AddScoped(sp =>
+{
+    // 1. Tạo bộ xử lý để bỏ qua lỗi SSL 
+    var handler = new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+    };
 
-// 3. Cấu hình Authentication & Cookie (GỘP LÀM 1 LẦN DUY NHẤT Ở ĐÂY)
+    // 2. Tạo HttpClient và GẮN ĐỊA CHỈ API 
+    return new HttpClient(handler)
+    {
+        BaseAddress = new Uri("http://localhost:5154/")
+    };
+});
+
+// 3. Cấu hình Authentication (Cookie)
+builder.Services.AddCascadingAuthenticationState(); 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.Cookie.Name = "MyAppCookie"; // Tên Cookie
-        options.LoginPath = "/login";        // Trang đăng nhập
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Hết hạn sau 30p
-        options.SlidingExpiration = true;    // Tự gia hạn nếu người dùng còn thao tác
+        options.Cookie.Name = "SellphoneAuth";
+        options.LoginPath = "/login";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     });
 
-// 4. Repository & DB
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// 5. HttpClient (Cấu hình Port)
-builder.Services.AddScoped(sp =>
-{
-    var handler = new HttpClientHandler();
-    if (builder.Environment.IsDevelopment())
-    {
-        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
-    }
-    var client = new HttpClient(handler);
-    // 👇 Kiểm tra kỹ port này trong launchSettings.json nhé
-    client.BaseAddress = new Uri("https://localhost:7033/");
-    return client;
-});
+// 4. Add Controller 
+builder.Services.AddControllers();
 
 var app = builder.Build();
-
-// ================== 2. CẤU HÌNH PIPELINE (MIDDLEWARE) ==================
-// ⚠️ THỨ TỰ CÁC DÒNG DƯỚI ĐÂY LÀ BẮT BUỘC ĐÚNG ⚠️
-
-// 1. Xử lý lỗi
-app.UseMiddleware<ExceptionMiddleware>();
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
 }
-
+app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 app.UseHttpsRedirection();
-
-// 2. Load file tĩnh (CSS/JS/Ảnh) - Phải load được ảnh trước khi check quyền
 app.UseStaticFiles();
 
-// 3. Định tuyến (Tìm đường đi trước)
+// 5. Thứ tự Middleware 
 app.UseRouting();
+app.UseAuthentication(); // Check vé
+app.UseAuthorization();  // Check quyền
+app.UseAntiforgery();    // Bảo mật Form
 
-// 4. Xác thực & Phân quyền (Check vé sau khi biết đường đi)
-app.UseAuthentication(); // Bạn là ai?
-app.UseAuthorization();  // Bạn được phép vào không?
-
-// 5. Chống giả mạo (Blazor bắt buộc cái này nằm sau Auth)
-app.UseAntiforgery();
-
-// 6. Map Endpoint
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+// Map Controller để Form Login tìm thấy đường vào
 app.MapControllers();
 
 app.Run();

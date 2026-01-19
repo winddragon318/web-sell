@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="MyWebApp.API/MyWebApp.API.csproj" Id="1052dd76-febf-4a07-8be0-0801c93242d1" />
+  <Project Path="MyWebApp.Shared/MyWebApp.Shared.csproj" Id="2b51ca5e-500e-4808-8f07-432c6fb520d4" />
   <Project Path="sellphone/sellphone.csproj" />
 </Solution>
