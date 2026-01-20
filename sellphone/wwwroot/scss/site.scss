@@ -1,4 +1,5 @@
-﻿// ==========================================================================
+﻿@use "sass:math";
+// ==========================================================================
 // 1. CONFIGURATION (CẤU HÌNH HỆ THỐNG)
 // ==========================================================================
 
@@ -710,5 +711,37 @@ tr.bg-white {
         background-color: $theme-light-hover;
         color: white !important;
         opacity: 1;
+    }
+}
+.ex-product {
+    width: 25%;
+
+    @media(max-width:1280px) {
+        width: math.div(100%,3); // 33.33%
+    }
+
+    @media (max-width: 768px) {
+        width: 50%;
+    }
+}
+//=================== HEADER ===================//
+.navbar-brand {
+    padding-left: 75px;
+
+    @media (max-width: 1370px) {
+        padding-left: 25px !important;
+    }
+
+    @media (max-width: 800px) {
+        padding-left: 0px !important;
+    }
+}
+.myNavbarContent {
+    @media (max-width: 1370px) {
+        margin-left: 75px !important;
+    }
+
+    @media (max-width: 800px) {
+        margin-left: 0px !important;
     }
 }

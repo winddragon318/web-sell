@@ -30,10 +30,10 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/"><b>Exclusive</b></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbarContent" aria-controls="myNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".myNavbarContent" aria-controls="myNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="myNavbarContent">
+            <div class="collapse navbar-collapse myNavbarContent" >
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" href="/">Home</a>
@@ -59,7 +59,7 @@
                             <i class="bi bi-search"></i>
                         </button>                        
                     </div>
-                    <div class="ms-auto d-flex align-items-center mt-2">
+                    <div class=" d-flex align-items-center mt-2">
                         <SectionOutlet SectionName="HeaderExtras" />
                     </div>
                 </form>               
@@ -103,13 +103,4 @@
             font-size: 18px;
             color: #000;
         }
-
-    .navbar-brand {
-        padding-left: 75px;
-    }
-    @@media (max-width: 800px) {
-        .navbar-brand {
-            padding-left: 0px !important;
-        }
-    }
 </style>

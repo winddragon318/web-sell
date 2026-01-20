@@ -640,3 +640,42 @@ tr.bg-white {
   color: white !important;
   opacity: 1;
 }
+
+.ex-product {
+  width: 25%;
+}
+@media (max-width: 1280px) {
+  .ex-product {
+    width: 33.3333333333%;
+  }
+}
+@media (max-width: 768px) {
+  .ex-product {
+    width: 50%;
+  }
+}
+
+.navbar-brand {
+  padding-left: 75px;
+}
+@media (max-width: 1370px) {
+  .navbar-brand {
+    padding-left: 25px !important;
+  }
+}
+@media (max-width: 800px) {
+  .navbar-brand {
+    padding-left: 0px !important;
+  }
+}
+
+@media (max-width: 1370px) {
+  .myNavbarContent {
+    margin-left: 75px !important;
+  }
+}
+@media (max-width: 800px) {
+  .myNavbarContent {
+    margin-left: 0px !important;
+  }
+}

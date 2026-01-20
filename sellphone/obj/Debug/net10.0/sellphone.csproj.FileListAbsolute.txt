@@ -382,5 +382,5 @@ C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\
 C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\uh5e1eyxe0-{0}-tmh7x23sb2-tmh7x23sb2.gz
 C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\f1h0z2ghuk-{0}-4xu1vw3swr-4xu1vw3swr.gz
 C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\3ls5imasxe-{0}-os405d3x69-os405d3x69.gz
-C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\l88il1ndgl-{0}-qe0mick97v-qe0mick97v.gz
-C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\1tozjcqe9m-{0}-mpvyd1p2xa-mpvyd1p2xa.gz
+C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\l88il1ndgl-{0}-t30q3yru33-t30q3yru33.gz
+C:\Users\Long\Desktop\learning\sellphone\sellphone\obj\Debug\net10.0\compressed\1tozjcqe9m-{0}-hba5episha-hba5episha.gz
